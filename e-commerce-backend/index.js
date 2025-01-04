@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000
 
 
 // middleWare
-app.use(express())
+app.use(express.json())
 app.use(routes)
 
 // dbConnection
