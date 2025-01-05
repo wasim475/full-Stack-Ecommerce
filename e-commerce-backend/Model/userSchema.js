@@ -13,6 +13,18 @@ const usersSchema = new Schema({
     password: {
         type: String,
         require: true
+    },
+    otp:{
+        type:String
+    },
+    role:{
+        type: String,
+        enum: ["admin", "marchant", "user"],
+        default: "user"
+    },
+    emailverify:{
+        type: Boolean,
+        default: false
     }
 })
 

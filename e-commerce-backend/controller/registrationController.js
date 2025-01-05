@@ -1,4 +1,5 @@
 const user = require("../Model/userSchema");
+const otpGenerator = require('otp-generator')
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const {
@@ -32,11 +33,12 @@ const registrationcontroller = async (req, res) => {
 
     const hashPass = await bcrypt.hash(password, 10);
     // console.log(hashPass);
-
+    const otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
     const User = new user({
       name,
       email,
       password: hashPass,
+      otp,
     });
     User.save();
     res.send("Registration Successfull");
@@ -48,11 +50,11 @@ const registrationcontroller = async (req, res) => {
           user: process.env.BASE_EMAIL,
           pass: "gfqj kgft hrxf hict",
         },
-      });
+      }); 
 
       const info = await transporter.sendMail({
         from: `"E-commerce 👻" ${process.env.BASE_EMAIL}`, // sender address
-        to: "wasim.hossain003@gmail.com", // list of receivers
+        to: email, // list of receivers
         subject: "Verify Your Email", // Subject line
         html: "<div><h1>Verify Your Email.</h1><a href=https://criccast.netlify.app/ ><button>Verify</button></a></div>", // html body
       });
