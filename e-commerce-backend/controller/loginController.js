@@ -3,6 +3,7 @@ const userSchema = require('../Model/userSchema')
 
 const loginController = async (req, res)=>{
     const {email, password} = req.body
+    console.log(email)
     const CurrentUser = await userSchema.find({email})
     const userEmail = CurrentUser[0]?.email
     const userPassword = CurrentUser[0]?.password
@@ -13,6 +14,6 @@ const loginController = async (req, res)=>{
         res.send({error:"Invalid Credential."})
     }
     
-}
+}   
 
 module.exports = loginController

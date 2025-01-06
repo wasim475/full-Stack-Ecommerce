@@ -1,9 +1,12 @@
+import { Outlet } from 'react-router'
+import Navbar from '../Pages/SharedPage/Navbar/Navbar'
 
 
 const RootLayout = () => {
   return (
     <div>
-      <h1 className='text-red-500'>RootLayout</h1>
+      <Navbar/>
+     <Outlet/>
     </div>
   )
 }
