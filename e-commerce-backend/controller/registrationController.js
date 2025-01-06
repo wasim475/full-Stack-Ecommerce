@@ -11,8 +11,8 @@ const registrationcontroller = async (req, res) => {
   const { name, email, password } = req.body;
   const existUser = await user.find({ email });
   if (existUser.length > 0) {
-    return res.send("Email already exist.");
-  }
+    return res.send({error:"Email already exist."});
+  }    
   if (!name) {
     res.send("Name is required.");
   } else if (!email) {
@@ -31,7 +31,13 @@ const registrationcontroller = async (req, res) => {
       }
     }
 
-    const hashPass = await bcrypt.hash(password, 10);
+    const hashPass = bcrypt.hash(password, 10, function(err, hash) {
+        if(hash){
+            return true
+        }else{
+            return false
+        }
+    }); 
     // console.log(hashPass);
     const otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
     const User = new user({
@@ -41,7 +47,7 @@ const registrationcontroller = async (req, res) => {
       otp,
     });
     User.save();
-    res.send("Registration Successfull");
+    res.send({success:"Registration Successfull"});
 
     if (user) {
       const transporter =nodemailer.createTransport({

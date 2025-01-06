@@ -1,20 +1,21 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import axios  from 'axios';
 import { Link } from 'react-router';
+import { toast } from 'react-toastify';
 // import Password from 'antd/es/input/Password';
 const onFinish = async (values) => {
-    const loginData = {email: values.email, password: values.password}
- const responser = await axios.post("http://localhost:1559/api/v1/auth/login", loginData)
+    const registrationData = {name: values.name, email: values.email, password: values.password}
+ const responser = await axios.post("http://localhost:1559/api/v1/auth/registration", registrationData)
  if(responser.data.error){
-    console.log(responser.data.error)
+    toast.error(responser.data.error)
 }else{
-     console.log(responser.data.success)
+    toast.success(responser.data.success)
  }
 };
 const onFinishFailed = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
-const Login = () => (
+const Registration = () => (
   <Form
     name="basic"
     labelCol={{
@@ -33,6 +34,18 @@ const Login = () => (
     onFinishFailed={onFinishFailed}
     autoComplete="off"
   >
+    <Form.Item
+      label="Name"
+      name="name"
+      rules={[
+        {
+          required: true,
+          message: 'Please input your name!',
+        },
+      ]}
+    >
+      <Input />
+    </Form.Item>
     <Form.Item
       label="email"
       name="email"
@@ -67,8 +80,8 @@ const Login = () => (
       <Button type="primary" htmlType="submit">
         Login
       </Button>
-    <h1>Don't have an accout? <Link to={"/registration"}>Register</Link></h1>
+      <h1>Already have an accout? <Link to={"/login"} >Login</Link></h1>
     </Form.Item>
   </Form>
 );
-export default Login;
+export default Registration;
