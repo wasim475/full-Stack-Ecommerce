@@ -12,10 +12,10 @@ const loginController = async (req, res)=>{
     const isValidPassword = await bcrypt.compare(password, userPassword);         
     console.log(isValidPassword) 
     if(userEmail===email && isValidPassword){
-        res.send({success: "Login Successfull", user: CurrentUser})
+        res.send({success: "Login Successfull", user: {name:CurrentUser.name,email:CurrentUser.email,emailverify:CurrentUser.emailverify,role:CurrentUser.role,id:CurrentUser._id}})
     }else{
         res.send({error:"Invalid Credential."})   
-    }  
+    }   
           
 }    
     

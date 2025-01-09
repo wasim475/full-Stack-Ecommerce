@@ -9,13 +9,15 @@ const Login = () => {
   const onFinish = async (values) => {
     const loginData = {email: values.email, password: values.password}
  const responser = await axios.post("http://localhost:1559/api/v1/auth/login", loginData)
- console.log(loginData.password)
- if(responser.data.error){
+ console.log(responser)
+ if(responser.data.error ){
     toast.error(responser.data.error)
-}else{
+}else if(responser.data.user.role !=="user"){
      toast.success(responser.data.success)
      navigate("/")
      console.log(responser)
+ } else if(responser.data.user.role ==="user"){
+  toast.warn("User cannot logging dashboard.")
  }
 };
 

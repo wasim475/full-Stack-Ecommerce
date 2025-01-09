@@ -15,10 +15,7 @@ const resetPassController = async (req, res)=>{
                   
     
    if(password){
-    if(!passwordValidation(password)){
-        return res.send({error:"Invalid Password."})
-    }else{
- 
+    if(passwordValidation(password)){
         bcrypt.hash(password, 10, async function(err, hash) {
             await userSchema.findOneAndUpdate(
                 {email},
@@ -27,6 +24,8 @@ const resetPassController = async (req, res)=>{
             )
         });
         res.send({success:"password Updated"})
+    }else{
+        return res.send({error:"Invalid Password."})
     }
    }      
 } 
