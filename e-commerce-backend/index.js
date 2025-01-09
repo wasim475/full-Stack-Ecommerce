@@ -6,7 +6,7 @@ const dbConnection = require("./dbConnection/dbConnection")
 const routes = require("./Routes")
 const port = process.env.PORT || 3000
 
-     
+
 // middleWare
 app.use(cors())
 app.use(express.json())

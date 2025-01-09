@@ -1,15 +1,17 @@
 import { Button, Checkbox, Form, Input,  Card, Space  } from 'antd';
 import axios  from 'axios';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 
 
-const Login = () => {
+const ResetPassword = () => {
   const navigate = useNavigate()
+  const {token}= useParams()
+  console.log(token)
   const onFinish = async (values) => {
-    const loginData = {email: values.email, password: values.password}
- const responser = await axios.post("http://localhost:1559/api/v1/auth/login", loginData)
- console.log(loginData.password)
+    const resetPasswordData = {token: token, password: values.password}
+ const responser = await axios.post("http://localhost:1559/api/v1/auth/resetpassword", resetPasswordData)
+//  console.log(loginData.password)
  if(responser.data.error){
     toast.error(responser.data.error)
 }else{
@@ -27,7 +29,7 @@ const onFinishFailed = (errorInfo) => {
       <div className='text-center'>
       <Space direction="vertical" size={16}>
           <Card
-            title="Login"
+            title="Reset Password"
             style={{
               width: 500,
             }}
@@ -50,44 +52,28 @@ const onFinishFailed = (errorInfo) => {
     onFinishFailed={onFinishFailed}
     autoComplete="off"
   >
-    <Form.Item
-      label="email"
-      name="email"
-      rules={[
-        {
-          required: true,
-          message: 'Please input your email!',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
+   
 
     <Form.Item
-      label="Password"
+      label="New Password"
       name="password"
       rules={[
         {
           required: true,
-          message: 'Please input your password!',
+          message: 'Please input your new password!',
         },
       ]}
     >
       <Input.Password />
     </Form.Item>
 
-    <Form.Item name="remember" valuePropName="checked" label={null}>
-      <Checkbox>Remember me</Checkbox>
-    </Form.Item>
-
-
     <Form.Item label={null}>
       <Button type="primary" htmlType="submit">
-        Login
+        Confirm Password
       </Button>
-    <h1> <Link to={`/forgotpassword`}> Forgot Password?</Link> </h1>
+   
     </Form.Item>
-    <h1> Do not have an account? <Link to={"/registration"}>Register</Link></h1>
+   
   </Form>
   </Card>
   </Space>
@@ -96,4 +82,5 @@ const onFinishFailed = (errorInfo) => {
   )
 }
 
-export default Login
+
+export default ResetPassword

@@ -6,11 +6,11 @@ const optController = async (req, res)=>{
     const CurrentUser = await userSchema.find({email})
     const userOtp = CurrentUser[0]?.otp
     if(userOtp!== otp){
-        res.send("invalid Opt.")
+        res.send({error:"invalid Opt."})
     }else{
        await userSchema.findOneAndUpdate({email},{"otp": "", "emailverify": true})
-        res.send("email verified")
+        res.send({success: "email verified"})
     }
-} 
+}  
 
 module.exports = optController

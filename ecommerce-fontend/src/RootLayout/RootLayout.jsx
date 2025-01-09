@@ -1,14 +1,13 @@
-import { Outlet } from 'react-router'
-import Navbar from '../Pages/SharedPage/Navbar/Navbar'
-
+import { Outlet } from "react-router";
+import Navbar from "../Pages/SharedPage/Navbar/Navbar";
 
 const RootLayout = () => {
   return (
     <div>
-      <Navbar/>
-     <Outlet/>
+      <Navbar />
+      <Outlet />
     </div>
-  )
-}
+  );
+};
 
-export default RootLayout
+export default RootLayout;

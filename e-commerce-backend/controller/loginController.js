@@ -3,23 +3,20 @@ const userSchema = require('../Model/userSchema')
 
 const loginController = async (req, res)=>{
     const {email, password} = req.body
-    console.log(email)
-    const CurrentUser = await userSchema.find({email})
-    const userEmail = CurrentUser[0]?.email
-    const userPassword = CurrentUser[0]?.password
-    const isValidPassword = await bcrypt.compare(password, userPassword, function(err, result) {
-        if(result){
-            return true
-        }else{
-            return false
-        }
-    });        
-    if(userEmail===email && isValidPassword){
-        res.send({success:"Login Successfull"})
-    }else{
-        res.send({error:"Invalid Credential."})
+    const CurrentUser = await userSchema.findOne({email})
+    if(!CurrentUser){
+        return res.send({error:"Invalid Credential."})       
     }
-        
+    const userEmail = CurrentUser?.email
+    const userPassword = CurrentUser?.password
+    const isValidPassword = await bcrypt.compare(password, userPassword);         
+    console.log(isValidPassword) 
+    if(userEmail===email && isValidPassword){
+        res.send({success: "Login Successfull", user: CurrentUser})
+    }else{
+        res.send({error:"Invalid Credential."})   
+    }  
+          
 }    
-   
+    
 module.exports = loginController

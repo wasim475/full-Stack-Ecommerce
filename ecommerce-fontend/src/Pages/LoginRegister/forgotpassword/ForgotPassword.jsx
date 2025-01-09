@@ -1,30 +1,32 @@
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, Card, Space } from "antd";
 import axios from "axios";
+import { useState } from 'react';
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import { Card, Space } from "antd";
 
-const Registration = () => {
-  const navigate = useNavigate()
+const ForgotPassword = () => {
+    const [loading, setLoading]= useState(false)
+  const navigate = useNavigate();
   const onFinish = async (values) => {
-    const registrationData = {
-      name: values.name,
-      email: values.email,
-      password: values.password,
-    };
+    setLoading(!loading)
+      const email = { email: values.email };
+      const responser = await axios.post(
+          "http://localhost:1559/api/v1/auth/forgetpassword",
+          email
+        );
+        
 
-    const responser = await axios.post(
-      "http://localhost:1559/api/v1/auth/registration",
-      registrationData
-    );
+
     if (responser.data.error) {
       toast.error(responser.data.error);
-    } if(responser.data.success) {
+    } else {
       toast.success(responser.data.success);
-      navigate(`/verify/${values.email}`)
-      
+      setLoading(false)
+      //  navigate("/")
+     
     }
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -33,7 +35,7 @@ const Registration = () => {
       <div className="text-center">
         <Space direction="vertical" size={16}>
           <Card
-            title="Registration"
+            title="Forgot Password"
             style={{
               width: 300,
             }}
@@ -57,18 +59,6 @@ const Registration = () => {
               autoComplete="off"
             >
               <Form.Item
-                label="Name"
-                name="name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your name!",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
                 label="email"
                 name="email"
                 rules={[
@@ -81,31 +71,14 @@ const Registration = () => {
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                ]}
-              >
-                <Input.Password />
-              </Form.Item>
-
-              <Form.Item name="remember" valuePropName="checked" label={null}>
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item>
-
               <Form.Item label={null}>
                 <Button type="primary" htmlType="submit">
-                  Create
+                    {
+                        loading ? "please wait" :" Reset Password"
+                    }
+                 
                 </Button>
               </Form.Item>
-              <h1>
-                Already have an accout? <Link to={"/login"}>Login</Link>
-              </h1>
             </Form>
           </Card>
         </Space>
@@ -114,4 +87,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
+export default ForgotPassword;
