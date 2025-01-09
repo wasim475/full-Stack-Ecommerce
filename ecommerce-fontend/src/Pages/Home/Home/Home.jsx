@@ -1,10 +1,11 @@
-import CarouselP from '../Carousel/Carousel'
+
+import Sidebar from '../Sidebar/Sidebar'
 
 
 const Home = () => {
   return (
     <div>
-      <CarouselP/>
+      <Sidebar/>
     </div>
   )
 }

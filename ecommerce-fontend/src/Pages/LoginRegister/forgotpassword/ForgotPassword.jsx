@@ -1,12 +1,10 @@
-import { Button, Checkbox, Form, Input, Card, Space } from "antd";
+import { Button, Form, Input, Card, Space } from "antd";
 import axios from "axios";
 import { useState } from 'react';
-import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
     const [loading, setLoading]= useState(false)
-  const navigate = useNavigate();
   const onFinish = async (values) => {
     setLoading(!loading)
       const email = { email: values.email };
