@@ -15,7 +15,7 @@ const Login = () => {
 }else if(responser.data.user.role !=="user"){
      toast.success(responser.data.success)
      navigate("/")
-     console.log(responser)
+     localStorage.setItem("users",JSON.stringify(responser.data.user))
  } else if(responser.data.user.role ==="user"){
   toast.warn("User cannot logging dashboard.")
  }

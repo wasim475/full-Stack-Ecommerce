@@ -1,13 +1,14 @@
-
-import Sidebar from '../Sidebar/Sidebar'
-
+import { Outlet } from "react-router";
+import Sidebar from "../../DashBoard/Sidebar/Sidebar";
+import Users from "../../DashBoard/users/Users";
 
 const Home = () => {
+  
   return (
     <div>
-      <Sidebar/>
+      <Sidebar />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

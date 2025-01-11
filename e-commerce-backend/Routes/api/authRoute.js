@@ -5,6 +5,7 @@ const optController = require('../../controller/otpController')
 const loginController = require('../../controller/loginController')
 const forgotPasswordController = require('../../controller/forgotPasswordController')
 const resetPassController = require('../../controller/resetPassController')
+const allUsersController = require('../../controller/allUsersController')
 
 
 
@@ -17,6 +18,7 @@ _.post("/otp", optController)
 _.post("/login", loginController)
 _.post("/forgetpassword", forgotPasswordController)
 _.post("/resetpassword", resetPassController)
+_.get("/users", allUsersController)
 
 module.exports = _
 
