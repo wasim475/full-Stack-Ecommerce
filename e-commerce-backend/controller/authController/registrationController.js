@@ -1,11 +1,11 @@
-const user = require("../Model/userSchema");
+const user = require("../../Model/userSchema");
 const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const {
   emailValidation,
   passwordValidation,
-} = require("../Utility/validation");
+} = require("../../Utility/validation");
 
 const registrationcontroller = async (req, res) => {
   const { name, email, password } = req.body;

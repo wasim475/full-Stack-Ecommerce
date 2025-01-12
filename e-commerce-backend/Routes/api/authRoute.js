@@ -1,11 +1,11 @@
 const express = require("express")
 const _ = express.Router()
-const registrationcontroller = require('../../controller/registrationController')
-const optController = require('../../controller/otpController')
-const loginController = require('../../controller/loginController')
-const forgotPasswordController = require('../../controller/forgotPasswordController')
-const resetPassController = require('../../controller/resetPassController')
-const allUsersController = require('../../controller/allUsersController')
+const registrationcontroller = require('../../controller/authController/registrationController')
+const optController = require('../../controller/authController/otpController')
+const loginController = require('../../controller/authController/loginController')
+const forgotPasswordController = require('../../controller/authController/forgotPasswordController')
+const resetPassController = require('../../controller/authController/resetPassController')
+const allUsersController = require('../../controller/authController/allUsersController')
 
 
 

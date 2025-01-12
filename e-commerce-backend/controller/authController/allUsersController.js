@@ -1,4 +1,4 @@
-const user = require('../Model/userSchema')
+const user = require('../../Model/userSchema')
 
 const allUsersController = async (req,res)=>{
     const data = await user.find({})

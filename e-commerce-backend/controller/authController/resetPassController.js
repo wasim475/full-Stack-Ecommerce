@@ -1,5 +1,5 @@
-const userSchema = require('../Model/userSchema')
-const { passwordValidation } = require('../Utility/validation')
+const userSchema = require('../../Model/userSchema')
+const { passwordValidation } = require('../../Utility/validation')
 var jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -12,7 +12,7 @@ const resetPassController = async (req, res)=>{
         return res.send({error:"email does not exist."})
     }
     const userEmail = existUser.email
-                  
+                    
     
    if(password){
     if(passwordValidation(password)){

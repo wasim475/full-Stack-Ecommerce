@@ -1,4 +1,4 @@
-const userSchema = require('../Model/userSchema')
+const userSchema = require('../../Model/userSchema')
 const nodemailer = require("nodemailer")
 var jwt = require('jsonwebtoken');
 const forgotPasswordController = async(req, res)=>{

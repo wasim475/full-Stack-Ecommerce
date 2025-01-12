@@ -1,4 +1,4 @@
-const userSchema = require('../Model/userSchema')
+const userSchema = require('../../Model/userSchema')
 
 
 const optController = async (req, res)=>{
