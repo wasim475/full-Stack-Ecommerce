@@ -13,7 +13,7 @@ const CatergoryModel = new Schema({
     ownerId:{
         type: mongoose.Types.ObjectId,
         ref:"user"
-    }
+    } 
 })
   
 module.exports = mongoose.model("Category", CatergoryModel)

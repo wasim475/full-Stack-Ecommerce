@@ -1,18 +1,26 @@
 import { Button, Form, Input } from "antd";
 import axios from 'axios';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { data } from 'react-router';
 import { toast } from 'react-toastify';
+import { currentUser } from '../../../Feature/CurrentUser/CurrentUserSlice';
 
 const AddCategory = () => {
-    const getUserData = localStorage.getItem("authData")
-    const userData = JSON.parse(getUserData)
-    const userId = userData?.user?.id
+    const {currUser} = useSelector((state)=>state.currentUser)
+    const currDispatch = useDispatch()
+    useEffect(()=>{
+      currDispatch(currentUser())
+    },[currDispatch])
+    const ownerId = currUser?.id
+
   const onFinish = async (values) => {
     const categoryData = {
         name: values.name,
-        userId
+        ownerId
     }
     const response = await axios.post("http://localhost:1559/api/v1/products/createcategory",categoryData)
+    // console.log(response)
      if(response?.data?.success){
         toast.success(response.data.success)
      }
@@ -21,6 +29,7 @@ const AddCategory = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  // console.log(ownerId)
   return (
     <>
       <Form
