@@ -8,6 +8,10 @@ import ForgotPassword from "../Pages/LoginRegister/forgotpassword/ForgotPassword
 import ResetPassword from "../Pages/LoginRegister/Reset Password/ResetPassword";
 import Users from "../Pages/DashBoard/users/Users";
 import Marchant from '../Pages/DashBoard/marchant/Marchant';
+import AddCategory from '../components/Category/Add Catetory/AddCategory';
+import ViewCategory from '../components/Category/view category/ViewCategory';
+import AddSubCategory from '../Pages/DashBoard/SubCategory/AddSubCategory';
+import SubCategory from '../Pages/DashBoard/SubCategory/SubCategory';
 
 const MainRoute = () => {
   return (
@@ -23,6 +27,10 @@ const MainRoute = () => {
           <Route path="/home" element={<Home />}>
           <Route path="users" element={<Users />} />
           <Route path="marchant" element={<Marchant />} />
+          <Route path="add-category" element={<AddCategory />} />
+          <Route path="category" element={<ViewCategory />} />
+          <Route path="add-sub-category" element={<AddSubCategory />} />
+          <Route path="sub-category" element={<SubCategory />} />
           <Route path="*" element={<h1>Page not found.</h1>} />
           </Route>
 

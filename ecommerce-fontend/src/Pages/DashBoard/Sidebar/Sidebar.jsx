@@ -121,6 +121,18 @@ const Sidebar = () => {
       if(e.key==2){
         navigate("/home/marchant")
       }
+      if(e.key==5){
+        navigate("/home/category")
+      }
+      if(e.key==4){
+        navigate("/home/add-category")
+      }
+      if(e.key==7){
+        navigate("/home/add-sub-category")
+      }
+      if(e.key==8){
+        navigate("/home/sub-category")
+      }
         console.log('click ', e);
       };
   return (
