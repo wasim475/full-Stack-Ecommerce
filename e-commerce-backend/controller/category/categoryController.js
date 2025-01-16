@@ -6,7 +6,7 @@ const categoryController = async (req, res) => {
   const Category = new category({ name, ownerId });
   await Category.save();
   res.send({ success: "Category Created." });
-  console.log(name,ownerId); 
+  // console.log(name,ownerId); 
 };    
       
 module.exports = categoryController;

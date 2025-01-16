@@ -8,7 +8,6 @@ const resetPassController = require('../../controller/authController/resetPassCo
 const allUsersController = require('../../controller/authController/allUsersController')
 
 
-
 _.get("/registration", (req, res)=>{
     res.send("Registration")
 })

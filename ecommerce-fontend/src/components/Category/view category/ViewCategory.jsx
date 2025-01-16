@@ -1,14 +1,18 @@
-import { Table ,Space} from 'antd';
+import { Table ,Space, Modal, Input, Form, Button } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { categoryData } from '../../../Feature/Category slice/categorySlice';
 import { Loading } from '../../Loading Error/Loading';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const ViewCategory = () => {
     const {categoriesData, isLoading, isError, error} = useSelector((state)=>state.categories)
     const [filterCat, setFilterCat]= useState([])
     const [isActive, setIsActive]= useState([])
+    const [refresh, setRefresh]= useState(false)
     const[catData, setCatData]= useState([])
+    const [msg, setMsg]= useState('')
     const catDispatch = useDispatch()
     useEffect(()=>{
         catDispatch(categoryData())
@@ -21,7 +25,8 @@ const ViewCategory = () => {
         key: item._id
       }))
       setCatData(catagory)
-    },[categoriesData])
+      // console.log(catagory)
+    },[categoriesData, refresh])
 
     useEffect(()=>{
       const cateNames = categoriesData?.map((cat)=>({
@@ -46,11 +51,50 @@ const ViewCategory = () => {
       index === self.findIndex((obj)=>obj.text===item.text)
     )
 
-    const handleDelete = (id)=>{
-      console.log(id)
+    const handleDelete = async (categoryId)=>{
+      const response = await axios.post("http://localhost:1559/api/v1/products/deleteCategory",{categoryId})
+      if(response.data.success){
+        setMsg(response.data.success)
+        const remainingData = catData?.filter((item)=> item.key !== categoryId)
+        setCatData(remainingData)
+
+        setTimeout(() => {
+          setMsg("")
+        }, 1000);
+        
+      }
     }
-    const handleEdit = (id)=>{
-      console.log(id)
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editCat, setEditCat] = useState('');
+    const [editId, setEditId]= useState(null)
+    const showModal = () => {
+      setIsModalOpen(true);
+    };
+    const handleOk = () => {
+      setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+      setIsModalOpen(false);
+    };
+
+    const onEditFinish = async (values) => {
+      const EditcategoryData = {
+          name: values.name,
+          categoryId: editId
+      }
+      
+      const response = await axios.post("http://localhost:1559/api/v1/products/editcategory",EditcategoryData)
+       if(response?.data?.success){
+          toast.success(response.data.success)
+          setIsModalOpen(false);
+       }
+    };
+    
+    const handleEdit = (id, name)=>{
+      setEditCat(editCat)
+      setEditId(id)
+      showModal()
     }
 
    
@@ -90,7 +134,7 @@ const ViewCategory = () => {
           key: 'action',
           render: (_, record) => (
             <Space size="middle">
-              <button onClick={()=>handleEdit(record.key)}>Edit</button>
+              <button onClick={()=>handleEdit(record.key, record.name)}>Edit</button>
               <button onClick={()=>handleDelete(record.key)}>Delete</button>
             </Space>
           ),
@@ -104,7 +148,46 @@ const ViewCategory = () => {
   return (
     <div>
       <h1 className='text-xl font-semibold flex justify-center mb-5'>Categories</h1>
+      <p className='text-green-400'>{msg}</p>
       <Table columns={columns} dataSource={catData} onChange={onChange} />
+      <Modal title="Edit Category" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Form
+        name="basic"
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 16,
+        }}
+        style={{
+          maxWidth: 600,
+        }}
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onEditFinish}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="Category Name"
+          name="name"
+          initialValue={editCat}
+          rules={[
+            {
+              required: true,
+              message: "Please input your username!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item label={null}>
+          <Button type="primary" htmlType="submit">
+            Update
+          </Button>
+        </Form.Item>
+      </Form>
+      </Modal>
     </div>
   )
 }

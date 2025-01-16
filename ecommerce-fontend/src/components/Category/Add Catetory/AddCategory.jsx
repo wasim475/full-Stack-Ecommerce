@@ -2,7 +2,6 @@ import { Button, Form, Input } from "antd";
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { data } from 'react-router';
 import { toast } from 'react-toastify';
 import { currentUser } from '../../../Feature/CurrentUser/CurrentUserSlice';
 
