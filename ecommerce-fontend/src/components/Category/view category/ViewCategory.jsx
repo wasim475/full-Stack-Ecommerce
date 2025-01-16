@@ -12,6 +12,8 @@ const ViewCategory = () => {
     const [isActive, setIsActive]= useState([])
     const [refresh, setRefresh]= useState(false)
     const[catData, setCatData]= useState([])
+    
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [msg, setMsg]= useState('')
     const catDispatch = useDispatch()
     useEffect(()=>{
@@ -26,7 +28,7 @@ const ViewCategory = () => {
       }))
       setCatData(catagory)
       // console.log(catagory)
-    },[categoriesData, refresh])
+    },[categoriesData])
 
     useEffect(()=>{
       const cateNames = categoriesData?.map((cat)=>({
@@ -65,7 +67,6 @@ const ViewCategory = () => {
       }
     }
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [editCat, setEditCat] = useState('');
     const [editId, setEditId]= useState(null)
     const showModal = () => {
@@ -87,6 +88,7 @@ const ViewCategory = () => {
       const response = await axios.post("http://localhost:1559/api/v1/products/editcategory",EditcategoryData)
        if(response?.data?.success){
           toast.success(response.data.success)
+          catDispatch(categoryData())
           setIsModalOpen(false);
        }
     };
@@ -150,7 +152,8 @@ const ViewCategory = () => {
       <h1 className='text-xl font-semibold flex justify-center mb-5'>Categories</h1>
       <p className='text-green-400'>{msg}</p>
       <Table columns={columns} dataSource={catData} onChange={onChange} />
-      <Modal title="Edit Category" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      
+      <Modal title="Edit Category" open={isModalOpen} >
       <Form
         name="basic"
         labelCol={{
@@ -175,13 +178,16 @@ const ViewCategory = () => {
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+              message: "Please input your category Name.",
             },
           ]}
         >
           <Input />
         </Form.Item>
         <Form.Item label={null}>
+          <Button type="default" onClick={handleCancel} >
+            Cancel
+          </Button>
           <Button type="primary" htmlType="submit">
             Update
           </Button>
