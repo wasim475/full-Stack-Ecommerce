@@ -11,6 +11,7 @@ const AddSubCategory = () => {
         name: values.name,
         userId
     }
+    
     const response = await axios.post("http://localhost:1559/api/v1/products/createcategory",categoryData)
      if(response?.data?.success){
         toast.success(response.data.success)
