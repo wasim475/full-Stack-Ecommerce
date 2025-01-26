@@ -23,6 +23,9 @@ const AddCategory = () => {
      if(response?.data?.success){
         toast.success(response.data.success)
      }
+     if(response?.data?.warn){
+        toast.warn(response.data.warn)
+     }
   };
 
   const onFinishFailed = (errorInfo) => {

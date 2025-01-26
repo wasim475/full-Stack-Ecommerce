@@ -31,9 +31,14 @@ const SubCategory = () => {
     }));
     setTableDatas(tableData);
   }, [subCategories]);
+
 const handleEdit = (key, name)=>{
-  console.log("key",key ,"name", name)
+  
 }
+const handleDelete = (key)=>{
+  
+}
+
   if (isLoading) {
     return Loading;
   }
