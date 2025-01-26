@@ -5,6 +5,10 @@ const subCategorySchema = new Schema({
         type: String,
         require: true
     },
+    isActive:{
+        type: Boolean,
+        default: false
+    },
     categoryId:{
         type: mongoose.Types.ObjectId,
         ref:"Category"

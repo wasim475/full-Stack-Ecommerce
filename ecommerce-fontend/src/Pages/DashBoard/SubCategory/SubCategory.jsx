@@ -38,7 +38,7 @@ const SubCategory = () => {
           width: '30%',
         },
         {
-          title: 'id',
+          title: 'Active',
           dataIndex: '_id',
           sorter: (a, b) => a.age - b.age,
         },

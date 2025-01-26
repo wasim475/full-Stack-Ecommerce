@@ -5,7 +5,7 @@ const createSubCategoryController = async (req, res)=>{
 
     const subCat = new subCategory({name, categoryId})
     const saveSubCategory = await subCat.save()
-    res.send(saveSubCategory)
+    res.send({success:"Sub-Category Created Successfully."})
 }
 
 module.exports = createSubCategoryController
