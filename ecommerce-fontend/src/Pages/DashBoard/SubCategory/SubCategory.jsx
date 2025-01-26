@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { subCategoryData } from "../../../Feature/SubCategorySlice/SubCategorySlice";
 import { Loading } from "../../../components/Loading Error/Loading";
 import { Button, Space, Table } from "antd";
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const SubCategory = () => {
   const { subCategories, isLoading, error } = useSelector(
@@ -14,7 +16,7 @@ const SubCategory = () => {
   useEffect(() => {
     subCatDispatch(subCategoryData());
   }, [subCatDispatch]);
-  console.log(tableDatas);
+  // console.log(tableDatas);
   useEffect(() => {
     const subCat = subCategories?.map((subcat) => ({
       text: subcat.name,
@@ -26,7 +28,7 @@ const SubCategory = () => {
     const tableData = subCategories.map((item) => ({
       name: item.name,
       isActive: item.isActive ? "Aproved" : "Pending",
-      category: item.categoryId.name,
+      category: item?.categoryId?.name,
       key: item._id
     }));
     setTableDatas(tableData);
@@ -35,8 +37,14 @@ const SubCategory = () => {
 const handleEdit = (key, name)=>{
   
 }
-const handleDelete = (key)=>{
-  
+const handleDelete = async (key)=>{
+  const subCatId = key;
+  const response = await axios.post("http://localhost:1559/api/v1/products/deletesubcategory",{subCatId})
+  if(response.data.success){
+    toast.success(response.data.success)
+  }
+  const remainingData = tableDatas?.filter((item)=> item.key !==key)
+  setTableDatas(remainingData)
 }
 
   if (isLoading) {
