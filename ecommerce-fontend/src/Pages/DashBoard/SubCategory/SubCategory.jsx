@@ -8,11 +8,12 @@ import { Table } from 'antd';
 const SubCategory = () => {
     const {subCategories, isLoading, error}= useSelector((state)=>state.subCategories)
     const [filterSubCat, setFilterSubCat]= useState([])
+    const [tableDatas, setTableDatas]= useState([])
     const subCatDispatch = useDispatch()
     useEffect(()=>{
         subCatDispatch(subCategoryData())
     },[subCatDispatch])
-
+console.log(tableDatas)
     useEffect(()=>{
         const subCat = subCategories?.map((subcat)=>({
                 text: subcat.name,
@@ -21,6 +22,16 @@ const SubCategory = () => {
             })
         )
         setFilterSubCat(subCat)
+    },[subCategories])
+    useEffect(()=>{
+      const tableData = subCategories.map((item)=>(
+        {
+          name: item.name,
+          isActive:item.isActive ? "Aproved": "Pending",
+          category: item.categoryId.name
+        }
+      ))
+      setTableDatas(tableData)
     },[subCategories])
 
     if(isLoading){
@@ -38,9 +49,14 @@ const SubCategory = () => {
           width: '30%',
         },
         {
+          title: 'Category',
+          dataIndex: 'category',
+          // sorter: (a, b) => a.age - b.age,
+        },
+        {
           title: 'Active',
-          dataIndex: '_id',
-          sorter: (a, b) => a.age - b.age,
+          dataIndex: 'isActive',
+          // sorter: (a, b) => a.age - b.age,
         },
         {
           title: 'Address',
@@ -66,7 +82,7 @@ const SubCategory = () => {
       };
   return (
     <div>
-      <Table columns={columns} dataSource={subCategories} onChange={onChange} />
+      <Table columns={columns} dataSource={tableDatas} onChange={onChange} />
     </div>
   )
 }
