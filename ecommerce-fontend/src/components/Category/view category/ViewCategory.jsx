@@ -113,6 +113,10 @@ const handleAprove = async (id)=>{
     toast.success(response.data.success)
   }
 }
+
+const handleHold = async (id)=>{
+  console.log(id)
+}
    
     // console.log("isActive",isActive)
     if(isLoading){
@@ -143,9 +147,14 @@ const handleAprove = async (id)=>{
               }
               <button onClick={()=>handleDelete(record.key)}>Delete</button>
               {
-                currUser?.role === "Admin" &&
+                currUser?.role === "Admin" && record.isActive == "pending"
+                ?
               <button onClick={()=>handleAprove(record.key)} >Aprove</button>
+              :
+              <button onClick={()=>handleHold(record)} >Hold</button>
               }
+                
+              
             </Space>
           ),
         },
