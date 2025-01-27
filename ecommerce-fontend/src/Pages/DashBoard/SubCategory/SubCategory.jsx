@@ -61,6 +61,31 @@ const SubCategory = () => {
     setTableDatas(remainingData);
   };
 
+  const handleAprove = async (id) => {
+    const response = await axios.post(
+      "http://localhost:1559/api/v1/products/subcategoryaprove",
+      { subcatId: id }
+    );
+    // console.log(response.data.success)
+    if (response.data.success) {
+      toast.success(response.data.success);
+      subCatDispatch(subCategoryData());
+    }
+  };
+
+  const handleHold = async (id) => {
+    console.log(id)
+    const response = await axios.post(
+      "http://localhost:1559/api/v1/products/subcategoryhold",
+      { subcatId: id }
+    );
+    // console.log(response.data.success)
+    if (response.data.success) {
+      toast.success(response.data.success);
+      subCatDispatch(subCategoryData());
+    }
+  };
+
   if (isLoading) {
     return Loading;
   }
@@ -96,8 +121,11 @@ const SubCategory = () => {
             </button>
           )}
           <button onClick={() => handleDelete(record.key)}>Delete</button>
-          {currUser.role === "Admin" && (
-            <button onClick={()=>console.log(record.key)}>Aprove</button>
+          {currUser?.role === "Admin" && record?.isActive == "Pending" ? (
+            
+            <button onClick={() => handleAprove(record.key)}>Aprove</button>
+          ) : (
+            <button onClick={() => handleHold(record.key)}>Hold</button>
           )}
         </Space>
       ),

@@ -108,7 +108,7 @@ const ViewCategory = () => {
     }
 const handleAprove = async (id)=>{
   const response = await axios.post("http://localhost:1559/api/v1/products/categoryaprove", {catId:id})
-  console.log(response.data.success)
+  // console.log(response.data.success)
   if(response.data.success){
     toast.success(response.data.success)
     catDispatch(categoryData())
@@ -117,7 +117,7 @@ const handleAprove = async (id)=>{
 
 const handleHold = async (id)=>{
   const response = await axios.post("http://localhost:1559/api/v1/products/categoryhole", {catId:id})
-  console.log(response.data.success)
+  // console.log(response.data.success)
   if(response.data.success){
     toast.success(response.data.success)
     catDispatch(categoryData())

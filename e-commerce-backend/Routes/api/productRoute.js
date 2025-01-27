@@ -11,6 +11,8 @@ const deleteSubCategoryController = require('../../controller/category/deleteSub
 const editSubCategoryController = require('../../controller/sub category/editSubCategoryController')
 const categoryAproveController = require('../../controller/category/categoryAproveController')
 const categoryHoldController = require('../../controller/category/categoryHoldController')
+const subcategoryAproveController = require('../../controller/sub category/subcategoryAproveController')
+const subCategoryHoldController = require('../../controller/sub category/subCategoryHoldController')
    
 _.post("/createcategory", categoryController)
 _.post("/create-subcategory", createSubCategoryController)
@@ -21,6 +23,8 @@ _.post("/deletesubcategory", deleteSubCategoryController)
 _.post("/editcategory", editCategoryController)
 _.post("/editsubcategory", editSubCategoryController)
 _.post("/categoryaprove", categoryAproveController)
+_.post("/subcategoryaprove", subcategoryAproveController)
 _.post("/categoryhole", categoryHoldController)
+_.post("/subcategoryhold", subCategoryHoldController)
   
 module.exports = _
