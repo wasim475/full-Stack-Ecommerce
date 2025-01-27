@@ -111,11 +111,17 @@ const handleAprove = async (id)=>{
   console.log(response.data.success)
   if(response.data.success){
     toast.success(response.data.success)
+    catDispatch(categoryData())
   }
 }
 
 const handleHold = async (id)=>{
-  console.log(id)
+  const response = await axios.post("http://localhost:1559/api/v1/products/categoryhole", {catId:id})
+  console.log(response.data.success)
+  if(response.data.success){
+    toast.success(response.data.success)
+    catDispatch(categoryData())
+  }
 }
    
     // console.log("isActive",isActive)
@@ -151,7 +157,7 @@ const handleHold = async (id)=>{
                 ?
               <button onClick={()=>handleAprove(record.key)} >Aprove</button>
               :
-              <button onClick={()=>handleHold(record)} >Hold</button>
+              <button onClick={()=>handleHold(record.key)} >Hold</button>
               }
                 
               
