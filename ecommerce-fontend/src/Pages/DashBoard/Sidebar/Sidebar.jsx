@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import { Menu,  Col, Row } from 'antd';
 import { Outlet, useNavigate } from 'react-router';
-const items = [
+import { useDispatch, useSelector } from 'react-redux';
+import { currentUser } from '../../../Feature/CurrentUser/CurrentUserSlice';
+
+const Sidebar = () => {
+  const navigate = useNavigate()
+  const {currUser} = useSelector((state)=>state.currentUser)
+  const dispatch = useDispatch()
+
+
+  useEffect(()=>{
+    dispatch(currentUser())
+  },[dispatch])
+
+  const items = [
     // Users Part
+    currUser?.role=== "Admin" &&
     {
       key: 'sub1',
       label: 'Users',
@@ -112,8 +126,7 @@ const items = [
     //   ],
     // },
   ];
-const Sidebar = () => {
-  const navigate = useNavigate()
+
     const onClick = (e) => {
       if(e.key==1){
         navigate("/home/users")

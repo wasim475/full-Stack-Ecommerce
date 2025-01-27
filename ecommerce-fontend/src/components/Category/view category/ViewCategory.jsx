@@ -5,6 +5,7 @@ import { categoryData } from '../../../Feature/Category slice/categorySlice';
 import { Loading } from '../../Loading Error/Loading';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { currentUser } from '../../../Feature/CurrentUser/CurrentUserSlice';
 
 const ViewCategory = () => {
     const {categoriesData, isLoading, isError, error} = useSelector((state)=>state.categories)
@@ -16,6 +17,13 @@ const ViewCategory = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [msg, setMsg]= useState('')
     const catDispatch = useDispatch()
+     const { currUser } = useSelector((state) => state.currentUser);
+      const dispatch = useDispatch();
+    
+      useEffect(() => {
+        dispatch(currentUser());
+      }, [dispatch]);
+
     useEffect(()=>{
         catDispatch(categoryData())
     },[catDispatch])
@@ -98,7 +106,13 @@ const ViewCategory = () => {
       setEditId(id)
       showModal()
     }
-
+const handleAprove = async (id)=>{
+  const response = await axios.post("http://localhost:1559/api/v1/products/categoryaprove", {catId:id})
+  console.log(response.data.success)
+  if(response.data.success){
+    toast.success(response.data.success)
+  }
+}
    
     // console.log("isActive",isActive)
     if(isLoading){
@@ -117,27 +131,21 @@ const ViewCategory = () => {
         {
           title: 'Active',
           dataIndex: "isActive",
-          filters: [
-            {
-              text: 'London',
-              value: 'London',
-            },
-            {
-              text: 'New York',
-              value: 'New York',
-            },
-          ],
-          onFilter: (value, record) => record.address.startsWith(value),
-          filterSearch: true,
-          width: '40%',
         },
         {
           title: 'Action',
           key: 'action',
           render: (_, record) => (
             <Space size="middle">
+              {
+                currUser?.role === "marchant "&&
               <button onClick={()=>handleEdit(record.key, record.name)}>Edit</button>
+              }
               <button onClick={()=>handleDelete(record.key)}>Delete</button>
+              {
+                currUser?.role === "Admin" &&
+              <button onClick={()=>handleAprove(record.key)} >Aprove</button>
+              }
             </Space>
           ),
         },
