@@ -25,10 +25,13 @@ const Users = () => {
   }, [users]);
   useEffect(() => {
     if (users?.data?.length) {
-      const email = users.data.map((item) => ({
+      const email = users.data.map((item) => (
+        
+        {
         text: item.email,
         value: item.email,
-      }));
+      }
+    ));
       setUsersEmail(email);
     }
   }, [users]);

@@ -129,22 +129,28 @@ const Sidebar = () => {
 
     const onClick = (e) => {
       if(e.key==1){
-        navigate("/home/users")
+        navigate("/dashboard/users")
       }
       if(e.key==2){
-        navigate("/home/marchant")
+        navigate("/dashboard/marchant")
       }
       if(e.key==5){
-        navigate("/home/category")
+        navigate("/dashboard/category")
       }
       if(e.key==4){
-        navigate("/home/add-category")
+        navigate("/dashboard/add-category")
       }
       if(e.key==7){
-        navigate("/home/add-sub-category")
+        navigate("/dashboard/add-sub-category")
       }
       if(e.key==8){
-        navigate("/home/sub-category")
+        navigate("/dashboard/sub-category")
+      }
+      if(e.key==10){
+        navigate("/dashboard/addproduct")
+      }
+      if(e.key==11){
+        navigate("/dashboard/products")
       }
         console.log('click ', e);
       };

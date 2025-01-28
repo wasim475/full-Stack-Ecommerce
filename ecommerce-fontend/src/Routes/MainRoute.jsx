@@ -12,6 +12,8 @@ import AddCategory from '../components/Category/Add Catetory/AddCategory';
 import ViewCategory from '../components/Category/view category/ViewCategory';
 import AddSubCategory from '../Pages/DashBoard/SubCategory/AddSubCategory';
 import SubCategory from '../Pages/DashBoard/SubCategory/SubCategory';
+import AddProducts from '../Pages/DashBoard/Products/AddProducts';
+import ViewProducts from '../Pages/DashBoard/Products/ViewProducts';
 
 const MainRoute = () => {
   return (
@@ -24,13 +26,15 @@ const MainRoute = () => {
           <Route path="forgotpassword" element={<ForgotPassword />} />
           <Route path="resetpassword/:token" element={<ResetPassword />} />
 
-          <Route path="/home" element={<Home />}>
+          <Route path="/dashboard" element={<Home />}>
           <Route path="users" element={<Users />} />
           <Route path="marchant" element={<Marchant />} />
           <Route path="add-category" element={<AddCategory />} />
           <Route path="category" element={<ViewCategory />} />
           <Route path="add-sub-category" element={<AddSubCategory />} />
           <Route path="sub-category" element={<SubCategory />} />
+          <Route path="addproduct" element={<AddProducts />} />
+          <Route path="products" element={<ViewProducts />} />
           <Route path="*" element={<h1>Page not found.</h1>} />
           </Route>
 
