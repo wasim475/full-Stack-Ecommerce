@@ -4,7 +4,7 @@ const {Schema} = mongoose
 const ProductsSchema = new Schema({
     name:{
         type: String,
-        require: true
+        require: true,
     },
     band:{
         type:String,
